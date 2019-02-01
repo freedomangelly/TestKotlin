@@ -28,8 +28,10 @@ class MainActivity : Activity() {
         setContentView(R.layout.activity_main)
         var relist = find<RecyclerView>(R.id.forecast_list)
         relist.layoutManager = LinearLayoutManager(this)
-        relist.adapter = ForecastListAdapter(items)
-
+//        relist.adapter = ForecastListAdapter(items)
+        var a=0;
+        var b=1;
+        var c=a + b
         toast("ddd")
         longToast("ffff")
         doAsync {
@@ -42,6 +44,12 @@ class MainActivity : Activity() {
         Log.i(TAG,"f1 date=${f1.date},temperature=${f1.temperature},details=${f1.details}")
         Log.i(TAG,"f1 date=${f1.component1()},temperature=${f1.component2()},details=${f1.component3()}")
         Log.i(TAG,"f2 date=${f2.date},temperature=${f2.temperature},details=${f2.details}")
+        doAsync() {
+            val result = RequestForecastCommand("94043").execute()
+            uiThread{
+                relist.adapter = ForecastListAdapter(result)
+            }
+        }
     }
 
 }
